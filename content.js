@@ -20,9 +20,6 @@ document.onreadystatechange = () => {
 
     let selector = document.querySelectorAll('.UnderlineNav-body a')
 
-    // let container = document.querySelector('nav.js-repo-nav js-sidenav-container-pjax js-responsive-underlinenav overflow-hidden UnderlineNav px-3 px-md-4 px-lg-5 color-bg-secondary');
-    // let container = document.querySelectorAll('nav')[1];
-
     let myPullRequestsNode = selector[2].cloneNode(2);
     myPullRequestsNode.href = linkMyPullRequests;
     myPullRequestsNode.children[1].textContent = 'My pull requests';
@@ -32,7 +29,6 @@ document.onreadystatechange = () => {
     myPullRequestsNode.style = "height:28px;margin:10px 10px 0 0";
 
     underlineNavigation.insertAdjacentElement("beforeend", myPullRequestsNode);
-    // container.insertAdjacentElement("beforeend", myPullRequestsNode);
 
     let myPendingReviewsNode = selector[2].cloneNode(2);
     myPendingReviewsNode.href = linkMyPendingReviews;
@@ -41,7 +37,6 @@ document.onreadystatechange = () => {
     myPendingReviewsNode.className = "btn btn-primary btn-sm";
     myPendingReviewsNode.style = "height:28px;margin-top:10px";
     underlineNavigation.insertAdjacentElement("beforeend", myPendingReviewsNode);
-    // container.insertAdjacentElement("beforeend", myPendingReviewsNode);
 
   }
 
