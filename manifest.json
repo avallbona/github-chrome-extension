@@ -1,0 +1,13 @@
+{
+    "manifest_version": 2,
+    "name": "Github buttons for own pr's and code reviews",
+    "version": "0.1",
+    "content_scripts": [
+        {
+          "matches": [
+            "https://github.com/*/*"
+          ],
+          "js": ["content.js"]
+        }
+      ]
+}
