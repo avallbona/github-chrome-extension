@@ -4,77 +4,90 @@
  * of the github repos
  */
 
+
+/**
+ * Load the custom buttons
+ */
 function loadButtons() {
 
-  // let underlineNavigation = document.querySelector('.UnderlineNav-body');
-  let pageHeaderActions = document.querySelector('.pagehead-actions');
-
-  // if (underlineNavigation) {
-  if (pageHeaderActions) {
+  let underlineNavigation = document.querySelector('.UnderlineNav-body');
+  if (underlineNavigation) {
 
     let urlParts = window.location.href.toString().split('/');
     let userOrg = urlParts[3];
     let repo = urlParts[4];
 
-    let prefix = "https://github.com/" + userOrg + "/" + repo + "/pulls";
+    let domain = "https://github.com";
+    let prefix = domain + "/" +userOrg + "/" + repo + "/pulls";
     let linkMyPullRequests = prefix + "/@me";
     let linkMyPendingReviews = prefix + "/review-requested/@me";
 
-    let selector = document.querySelectorAll('.UnderlineNav-body a')
+    // underline menu
+    let myPullRequestsNode = getButton(linkMyPullRequests, "My pull requests", domain);
+    let myPendingReviewsNode = getButton(linkMyPendingReviews, "My pending reviews", domain);
+    underlineNavigation.insertBefore(myPullRequestsNode, underlineNavigation.lastChild);
+    underlineNavigation.insertBefore(myPendingReviewsNode, underlineNavigation.lastChild);
 
-    let myPullRequestsNode = selector[2].cloneNode(2);
-    myPullRequestsNode.href = linkMyPullRequests;
-    myPullRequestsNode.children[1].textContent = 'My pull requests';
-    myPullRequestsNode.className.replace(' selected ', '');
-    myPullRequestsNode.children[2].remove();
-    myPullRequestsNode.className = "btn btn-primary btn-sm";
-    myPullRequestsNode.style = "height:28px;margin:0;";
+    // responsive underline menu
+    let myPullrequestsResponsiveNode = getResponsiveButton(linkMyPullRequests, "My pull requests");
+    let myPendingReviewsResponsiveNode = getResponsiveButton(linkMyPendingReviews, "My pending reviews");
 
-    // underlineNavigation.insertAdjacentElement("beforeend", myPullRequestsNode);
-
-    let listItem1 = document.createElement('li');
-    listItem1.appendChild(myPullRequestsNode);
-
-    pageHeaderActions.insertBefore(listItem1, pageHeaderActions.firstChild);
-
-    let myPendingReviewsNode = selector[2].cloneNode(2);
-    myPendingReviewsNode.href = linkMyPendingReviews;
-    myPendingReviewsNode.children[1].textContent = "My pending code reviews"
-    myPendingReviewsNode.children[2].remove();
-    myPendingReviewsNode.className = "btn btn-primary btn-sm";
-    myPendingReviewsNode.style = "height:28px;margin:0;";
-    // underlineNavigation.insertAdjacentElement("beforeend", myPendingReviewsNode);
-
-    let listItem2 = document.createElement('li');
-    listItem2.appendChild(myPendingReviewsNode);
-    pageHeaderActions.insertBefore( listItem2, pageHeaderActions.firstChild);
+    let ulNode = document.querySelector("#js-repo-pjax-container > div.color-bg-secondary.pt-3.hide-full-screen.mb-5 > nav > div > details > div > details-menu > ul");
+    ulNode.appendChild(myPullrequestsResponsiveNode);
+    ulNode.appendChild(myPendingReviewsResponsiveNode);
 
   }
 
 }
 
-// document.addEventListener('click', function (event) {
-//
-//   console.log('load from click: '+event.target);
-// 	// If the clicked element doesn't have the right selector, bail
-// 	if (!event.target.matches('.UnderlineNav-item span')) {
-// 	  return;
-//   }
-//
-// 	// Don't follow the link
-// 	// event.preventDefault();
-//
-// 	// Log the clicked element in the console
-// 	// console.log(event.target);
-// 	console.log('uep22222');
-// 	loadButtons();
-//
-// }, false);
+/**
+ * link for the underline nav menu
+ * @param link
+ * @param name
+ * @param domain
+ * @returns {HTMLLIElement}
+ */
+function getButton(link, name, domain){
 
-// load initial buttons
-// document.onreadystatechange = () => {
-  console.log('initial load');
-  loadButtons();
-// }
+  let elementLi = document.createElement('li');
+  elementLi.className="flex-d";
 
-// };
+  let elementA = document.createElement('a');
+  elementA.href = link;
+  elementA.className = "js-selected-navigation-item UnderlineNav-item hx_underlinenav-item no-wrap js-responsive-underlinenav-item";
+  elementA.dataset.selectedLinks = "repo_pulls checks" + link.replace(domain, '');
+
+  let elementSpan = document.createElement("span");
+  elementA.appendChild(elementSpan);
+  elementSpan.outerHTML = '<span data-content="'+name+'">'+name+'</span>';
+  elementLi.appendChild(elementA);
+
+  return elementLi;
+
+}
+
+/**
+ * link for the underline nav responsive menu
+ * @param link
+ * @param name
+ * @param domain
+ * @returns {HTMLLIElement}
+ */
+function getResponsiveButton(link, name, domain){
+  let elementLi = document.createElement('li');
+  elementLi.setAttribute('data-menu-item', 'i9mypullrequests')
+
+  let elementA = document.createElement('a');
+  elementA.href = link;
+  elementA.setAttribute("role", "menuItem");
+  elementA.className="js-selected-navigation-item dropdown-item";
+  elementA.setAttribute("data-selected-links", link.replace(domain, ''));
+  elementA.textContent = name;
+
+  elementLi.appendChild(elementA);
+  return elementLi;
+
+}
+
+//init buttons
+loadButtons();
