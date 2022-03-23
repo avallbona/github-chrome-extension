@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Github buttons for own pr's and code reviews",
-    "version": "0.1",
+    "version": "0.2",
     "content_scripts": [
         {
           "matches": [
