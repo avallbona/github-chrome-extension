@@ -26,8 +26,9 @@ function loadButtons() {
     // underline menu
     let myPullRequestsNode = getButton(linkMyPullRequests, "My pull requests", domain, "my-pull-requests");
     let myPendingReviewsNode = getButton(linkMyPendingReviews, "My pending reviews", domain, "my-pending-reviews");
-    underlineNavigation.insertBefore(myPullRequestsNode, underlineNavigation.lastChild);
-    underlineNavigation.insertBefore(myPendingReviewsNode, underlineNavigation.lastChild);
+
+    underlineNavigation.appendChild(myPullRequestsNode);
+    underlineNavigation.appendChild(myPendingReviewsNode);
 
   }
 
@@ -43,17 +44,16 @@ function loadButtons() {
 function getButton(link, name, domain, id){
 
   let elementLi = document.createElement('li');
-  elementLi.className="flex-d";
+  elementLi.className="prc-UnderlineNav-UnderlineNavItem-syRjR";
   elementLi.id=id
 
-  let iconSvgSource = document.querySelectorAll('.UnderlineNav-body a#pull-requests-tab > svg')[0];
+  let iconSvgSource = document.querySelectorAll('body > div.logged-in.env-production.page-responsive > div.position-relative.header-wrapper.js-header-wrapper > react-partial:nth-child(7) > div > header > nav > ul > li:nth-child(3) > a > span:nth-child(1) > svg')[0];
   let iconSvg = iconSvgSource ? iconSvgSource.cloneNode(true) : null;
   let elementA = document.createElement('a');
   elementA.href = link;
   elementA.dataset.selectedLinks = "repo_pulls checks" + link.replace(domain, '');
 
   elementA.className = "btn btn-primary btn-sm";
-  elementA.style = "height:27px;margin:10px 10px 0 0;line-height:19px;";
 
   let elementSpan = document.createElement("span");
   if (iconSvg){

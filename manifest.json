@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Github buttons for own pr's and code reviews",
     "description": "Github buttons for own pr's and code reviews",
-    "version": "0.2",
+    "version": "0.3",
     "permissions": ["scripting"],
     "content_scripts": [
         {
