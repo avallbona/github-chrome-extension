@@ -9,7 +9,7 @@
  */
 function loadButtons() {
 
-  let underlineNavigation = document.querySelector('.UnderlineNav-body');
+  let underlineNavigation = document.querySelector('.prc-components-UnderlineItemList-xKlKC');
   let alreadyExistsButtons = document.querySelector('#my-pull-requests');
 
   if (underlineNavigation && !alreadyExistsButtons) {
@@ -29,15 +29,6 @@ function loadButtons() {
     underlineNavigation.insertBefore(myPullRequestsNode, underlineNavigation.lastChild);
     underlineNavigation.insertBefore(myPendingReviewsNode, underlineNavigation.lastChild);
 
-    // responsive underline menu
-    // let myPullrequestsResponsiveNode = getResponsiveButton(linkMyPullRequests, "My pull requests");
-    // let myPendingReviewsResponsiveNode = getResponsiveButton(linkMyPendingReviews, "My pending reviews");
-    //
-    // let ulNode = document.querySelector("#js-repo-pjax-container > div.color-bg-secondary.pt-3.hide-full-screen.mb-5 > nav > div > details > div > details-menu > ul");
-    // ulNode.appendChild(myPullrequestsResponsiveNode);
-    // ulNode.appendChild(myPendingReviewsResponsiveNode);
-
-
   }
 
 }
@@ -55,7 +46,8 @@ function getButton(link, name, domain, id){
   elementLi.className="flex-d";
   elementLi.id=id
 
-  let iconSvg = document.querySelectorAll('.UnderlineNav-body a#pull-requests-tab > svg')[0].cloneNode(true);
+  let iconSvgSource = document.querySelectorAll('.UnderlineNav-body a#pull-requests-tab > svg')[0];
+  let iconSvg = iconSvgSource ? iconSvgSource.cloneNode(true) : null;
   let elementA = document.createElement('a');
   elementA.href = link;
   elementA.dataset.selectedLinks = "repo_pulls checks" + link.replace(domain, '');
@@ -76,29 +68,7 @@ function getButton(link, name, domain, id){
 
 }
 
-// /**
-//  * link for the underline nav responsive menu
-//  * @param link
-//  * @param name
-//  * @param domain
-//  * @returns {HTMLLIElement}
-//  */
-// function getResponsiveButton(link, name, domain){
-//   let elementLi = document.createElement('li');
-//   elementLi.setAttribute('data-menu-item', 'i9mypullrequests')
-//
-//   let elementA = document.createElement('a');
-//   elementA.href = link;
-//   elementA.setAttribute("role", "menuItem");
-//   elementA.className="js-selected-navigation-item dropdown-item";
-//   elementA.setAttribute("data-selected-links", link.replace(domain, ''));
-//   elementA.textContent = name;
-//
-//   elementLi.appendChild(elementA);
-//   return elementLi;
-//
-// }
-
 //init buttons
 loadButtons();
-document.addEventListener('pjax:end', () => loadButtons());
+document.addEventListener('turbo:load', () => loadButtons());
+document.addEventListener('turbo:render', () => loadButtons());
