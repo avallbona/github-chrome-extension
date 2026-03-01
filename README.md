@@ -2,7 +2,7 @@
 
 ## Description
 
-![Github Chrome Extension](gh-action.jpg "Github Chrome Extension")
+![Github Chrome Extension](gh-action2.png "Github Chrome Extension")
 
 A lightweight Chrome extension that enhances the GitHub repository navigation bar by injecting two shortcut buttons into the underline nav menu of any GitHub repository page:
 
